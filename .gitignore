@@ -2,10 +2,11 @@
 
 
 # Visual Strudio
-*.vcxproj.user
-.vc
-
-*/Build
-*/Build/*
-*/Output
-*/Output/*
+CPPGIT/arad4228/Src/*/*.vcxproj.user
+CPPGIT/arad4228/.vc
+CPPGIT/arad4228/Build/
+CPPGIT/arad4228/Build/*
+CPPGIT/arad4228/Output
+CPPGIT/arad4228/Output*
+CPPGIT/cppcore/
+CPPGIT/cppcore/*
