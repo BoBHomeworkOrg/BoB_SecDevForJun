@@ -4,3 +4,8 @@
 # Visual Strudio
 *.vcxproj.user
 .vc
+
+/Build
+/Build/*
+/Output
+/Output/*
