@@ -1,22 +1,31 @@
 #include "pch.h"
-#include "GlobalRingBuffer.h"
 
-int main(void)
+int main()
 {
-	HANDLE hFile = CreateFile(TEXT("C:\\Users\\arad4\\Desktop\\CPPGIT\\report.json"), GENERIC_READ_, OPEN_EXISTING_, 0);
-	std::list<char*> listTemp;
-	while (true)
+	LPCTSTR pszReportJson = TEXT("C:\\Users\\arad4\\Desktop\\CPPGIT\\report.json"); // 본인 경로에 맞게 수정1
+	LPCTSTR pszReportXml = TEXT("C:\\Users\\arad4\\Desktop\\target.xml"); // 본인 경로에 맞게 수정2
+	LPCTSTR pszTargetXml = TEXT("C:\\Users\\arad4\\Desktop\\CPPGIT\\target.xml"); // 본인 경로에 맞게 수정3
+	try
 	{
-		const DWORD dwBufferSize = 100;
-		char* pBuffer = (char*)RingBuffer()->Alloc(dwBufferSize + 1);
-		DWORD dwReadSize = 0;
-		if (!ReadFile(hFile, pBuffer, dwBufferSize, &dwReadSize) || 0 == dwReadSize)
-			break;
-		pBuffer[dwReadSize] = 0;
-		listTemp.push_back(pBuffer);
+		ST_REPORT report;
+		if (!UTF8::ReadJsonFromFile(&report, pszReportJson))
+			throw exception_format(TEXT("Reading %s failure"), pszReportJson);
+		if (!UTF8::WriteXmlToFile(&report, pszReportXml))
+			throw exception_format(TEXT("Writing %s failure"), pszReportXml);
+		std::tstring strMyXml;
+		if (EC_SUCCESS != ReadFileContents(pszReportXml, strMyXml))
+			throw exception_format(TEXT("Reading MyXml %s failure"), pszReportXml);
+		std::tstring strTargetXml;
+		if (EC_SUCCESS != ReadFileContents(pszTargetXml, strTargetXml))
+			throw exception_format(TEXT("Reading TargetXml %s failure"), pszTargetXml);
+		if (strMyXml != strTargetXml)
+			throw exception_format(TEXT("Not exactly matched!"));
+		printf("You are succeeded!\n");
 	}
-	CloseFile(hFile);
-	printf("%s", listTemp.front());
+	catch (const std::exception& e)
+	{
+		printf("%s\n", e.what());
+		return -1;
+	}
 	return 0;
-
 }

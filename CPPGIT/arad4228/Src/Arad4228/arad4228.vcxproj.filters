@@ -8,14 +8,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="GlobalRingBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="resource.h">
       <Filter>리소스 파일</Filter>
     </ClInclude>
-    <ClInclude Include="GlobalRingBuffer.h" />
+    <ClInclude Include="report.h" />
+    <ClInclude Include="report%281%29.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="arad4228.rc">
